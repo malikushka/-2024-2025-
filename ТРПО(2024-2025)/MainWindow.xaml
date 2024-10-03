@@ -1,0 +1,231 @@
+﻿<Window x:Class="ТРПО_2024_2025_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ТРПО_2024_2025_"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" MinWidth="700">
+    <!--<Window.Background>
+        <ImageBrush ImageSource="C:\Users\user\Downloads\2024-09-29_17-37-56.png"/>
+    </Window.Background>-->
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="go" HorizontalAlignment="Right" VerticalAlignment="Top" Width="260" Height="50" Margin="10" Style="{StaticResource RoundedButtonStyle}" 
+                Content="Вы выбрали учебник! Перейти к автомату>>" Foreground="White" Background="#4fa9b2" Click="go_Click" Visibility="Collapsed"/>
+        <WrapPanel Height="1000" Width="750" Grid.Row="1" >
+            <Canvas x:Name="myStackPanel1" Margin="70 70 40 0" Height="200" Width="150" PreviewMouseLeftButtonDown="myStackPanel1_PreviewMouseLeftButtonDown">
+                <Canvas.Style>
+                    <Style TargetType="Canvas">
+                        <Setter Property="Panel.ZIndex" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="99" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Canvas.Style>
+                <Canvas.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.3" />
+                </Canvas.Effect>
+                <Button Height="250" Width="150" Margin="0 -20 0 0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Effect>
+                        <BlurEffect Radius="5" x:Name="buttonEffect"/>
+                    </Button.Effect>
+                    <Viewbox Stretch="Fill">
+                        <!--<Image x:Name="img" Source="C:\Users\user\Downloads\2024-09-29_19-07-32.png">
+                            <Image.LayoutTransform>
+                                <RotateTransform Angle="0" CenterX="0.5" CenterY="0.5"/>
+                            </Image.LayoutTransform>
+                        </Image>-->
+                    </Viewbox>
+                </Button>
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Canvas.Triggers>
+                    <EventTrigger RoutedEvent="GotFocus">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(StackPanel.Width)" Duration="0:0:1" To="200" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(StackPanel.Height)" Duration="0:0:1" To="300" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Duration="0:0:1" To="2" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Duration="0:0:1" To="2" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Duration="0:0:1" To="0.3" />
+                                <DoubleAnimation Storyboard.TargetName="buttonEffect" Storyboard.TargetProperty="Radius" Duration="0:0:1" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="LostFocus">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="Width" Duration="0:0:1"  />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="Height" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel1" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Duration="0:0:1" To="0"/>
+                                <DoubleAnimation Storyboard.TargetName="buttonEffect" Storyboard.TargetProperty="Radius" Duration="0:0:1" To="5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Canvas.Triggers>
+            </Canvas>
+            <Canvas x:Name="myStackPanel2"  Margin="30" Height="200" Width="150" PreviewMouseLeftButtonDown="myStackPanel2_PreviewMouseLeftButtonDown">
+                <Canvas.Style>
+                    <Style TargetType="Canvas">
+                        <Setter Property="Panel.ZIndex" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="99" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Canvas.Style>
+                <Canvas.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.3" />
+                </Canvas.Effect>
+                <Button Height="250" Width="150" Margin="0 10 0 0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Effect>
+                        <BlurEffect Radius="5" x:Name="buttonEffect3"/>
+                    </Button.Effect>
+                    <Viewbox Stretch="Fill">
+                        <!--<Image x:Name="img1" Source="C:\Users\user\Downloads\2024-09-29_19-10-58.png">
+                            <Image.LayoutTransform>
+                                <RotateTransform Angle="0" CenterX="0.5" CenterY="0.5"/>
+                            </Image.LayoutTransform>
+                        </Image>-->
+                    </Viewbox>
+                </Button>
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Canvas.Triggers>
+                    <EventTrigger RoutedEvent="GotFocus">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(StackPanel.Width)" Duration="0:0:1" To="200" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(StackPanel.Height)" Duration="0:0:1" To="300" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Duration="0:0:1" To="2" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Duration="0:0:1" To="2" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Duration="0:0:1" To="0.3" />
+                                <DoubleAnimation Storyboard.TargetName="buttonEffect3" Storyboard.TargetProperty="Radius" Duration="0:0:1" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="LostFocus">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="Width" Duration="0:0:1"  />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="Height" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel2" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Duration="0:0:1" To="0"/>
+                                <DoubleAnimation Storyboard.TargetName="buttonEffect3" Storyboard.TargetProperty="Radius" Duration="0:0:1" To="5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Canvas.Triggers>
+            </Canvas>
+            <Canvas x:Name="myStackPanel3"  Margin="30" Height="200" Width="150" PreviewMouseLeftButtonDown="myStackPanel3_PreviewMouseLeftButtonDown">
+                <Canvas.Style>
+                    <Style TargetType="Canvas">
+                        <Setter Property="Panel.ZIndex" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="99" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Canvas.Style>
+                <Canvas.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.3" />
+                </Canvas.Effect>
+                <Button Height="250" Width="150" Margin="0 10 0 0" Background="Black">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Effect>
+                        <BlurEffect Radius="5" x:Name="buttonEffect6"/>
+                    </Button.Effect>
+                    <Viewbox Stretch="Fill">
+                        <!--<Image x:Name="img2" Source="C:\Users\user\Downloads\2024-09-29_18-59-33.png">
+                            <Image.LayoutTransform>
+                                <RotateTransform Angle="0" CenterX="0.5" CenterY="0.5"/>
+                            </Image.LayoutTransform>
+                        </Image>-->
+                    </Viewbox>
+                </Button>
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Canvas.Triggers>
+                    <EventTrigger RoutedEvent="GotFocus">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(StackPanel.Width)" Duration="0:0:1" To="200" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(StackPanel.Height)" Duration="0:0:1" To="300" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Duration="0:0:1" To="2" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Duration="0:0:1" To="2" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Duration="0:0:1" To="0.3" />
+                                <DoubleAnimation Storyboard.TargetName="buttonEffect6" Storyboard.TargetProperty="Radius" Duration="0:0:1" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="LostFocus">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="Width" Duration="0:0:1"  />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="Height" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Duration="0:0:1" />
+                                <DoubleAnimation Storyboard.TargetName="myStackPanel3" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Duration="0:0:1" To="0"/>
+                                <DoubleAnimation Storyboard.TargetName="buttonEffect6" Storyboard.TargetProperty="Radius" Duration="0:0:1" To="5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Canvas.Triggers>
+            </Canvas>
+        </WrapPanel>
+    </Grid>
+</Window>
